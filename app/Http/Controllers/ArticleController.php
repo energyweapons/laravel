@@ -36,7 +36,9 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
-        Article::query()->create($request->all());
+        // Article::query()->create($request->all());
+
+        $request->user()->articles()->create($request->all());
 
         session()->flash('success_message', 'เพิ่มบทความสำเสร็จ');
 

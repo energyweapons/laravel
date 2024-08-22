@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
@@ -14,7 +15,11 @@ Route::controller(PageController::class)->group(function () {
 });
 
 Route::group([
-    'prefix' => '/admin'
+    'prefix' => '/admin',
+    'middleware' => [
+        'auth',
+        IsAdmin::class,
+    ],
 ], function () {
     Route::resource('/users', UserController::class);
 

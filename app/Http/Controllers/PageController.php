@@ -11,6 +11,9 @@ class PageController extends Controller
     {
         $articles = Article::query()
             ->published()
+            ->with([
+                'user:id,name'
+            ])
             ->paginate(10);
 
         return view('pages.index', [

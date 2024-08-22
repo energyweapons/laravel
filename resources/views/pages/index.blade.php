@@ -15,8 +15,7 @@
                     <div class="col p-4 d-flex flex-column position-static">
                         <strong class="d-inline-block mb-2 text-primary-emphasis">World</strong>
                         <h3 class="mb-0">{{ Str::limit($article->title, 45, '...') }}</h3>
-                        <div class="mb-1 text-body-secondary">
-                            {{ $article->published_at->locale('th')->translatedFormat('d M y') }}</div>
+                        <div class="mb-1 text-body-secondary">{{ $article->user ? $article->user->name : 'Unknow' }} | {{ $article->published_at->locale('th')->translatedFormat('d M y') }}</div>
                         <p class="card-text mb-auto">{{ Str::limit($article->body, 240) }}</p>
                         <a href="{{ route('news', ['id' => $article->id]) }}"
                             class="icon-link gap-1 icon-link-hover stretched-link">
