@@ -6,15 +6,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 
-Route::get('/articles', [ArticleController::class, 'index'])
-    ->name('articles.index');
-
-Route::get('/articles/{id}', [ArticleController::class, 'show'])
-    ->name('articles.show');
-
-Route::get('/categories', [CategoryController::class, 'index'])
-    ->name('categories.index');
-
 Route::controller(PageController::class)->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/about', 'about')->name('about');
@@ -26,4 +17,5 @@ Route::group([
 ], function () {
     Route::resource('/users', UserController::class);
 
+    Route::resource('/articles', ArticleController::class);
 });

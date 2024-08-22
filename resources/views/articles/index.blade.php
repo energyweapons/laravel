@@ -32,7 +32,7 @@
                                 <td class="text-end">{{ $loop->iteration }}</td>
                                 <td>{{ $article->title }}</td>
                                 <td>{{ $article->published_at }}</td>
-                                <td>{{ $article->created_at->locale('th')->diffForHumans() }}</td>
+                                <td>{{ $article->created_at->locale('th')->translatedFormat('d M y') }}</td>
                                 <td>{{ $article->updated_at->locale('th')->diffForHumans() }}</td>
                                 <td class="p-0 text-center align-middle">
                                     <div class="btn-group">
