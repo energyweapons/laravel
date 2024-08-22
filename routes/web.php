@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 
 Route::controller(PageController::class)->group(function () {
     Route::get('/', 'index')->name('index');
+    Route::get('/news/{id}', 'news')->name('news');
     Route::get('/about', 'about')->name('about');
     Route::get('/contact', 'contact')->name('contact');
 });

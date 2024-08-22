@@ -2,13 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
     public function index()
     {
-        return view('pages.contact');
+        $articles = Article::query()
+            ->published()
+            ->paginate(10);
+
+        return view('pages.index', [
+            'articles' => $articles,
+        ]);
+    }
+
+    public function news(string $id)
+    {
+        $article = Article::query()->findOrFail($id);
+
+        return view('pages.news', [
+            'article' => $article,
+        ]);
     }
 
     public function about()

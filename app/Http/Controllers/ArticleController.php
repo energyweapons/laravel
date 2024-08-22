@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreArticleRequest;
+use App\Http\Requests\UpdateArticleRequest;
 
 class ArticleController extends Controller
 {
@@ -14,7 +16,7 @@ class ArticleController extends Controller
     {
         $articles = Article::query()
             ->select('id', 'title', 'body', 'published_at', 'created_at', 'updated_at')
-            ->paginate(2);
+            ->paginate(10);
 
         return view('articles.index', [
             'articles' => $articles,
@@ -32,9 +34,13 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreArticleRequest $request)
     {
-        //
+        Article::query()->create($request->all());
+
+        session()->flash('success_message', 'เพิ่มบทความสำเสร็จ');
+
+        return redirect()->route('articles.index');
     }
 
     /**
@@ -42,7 +48,11 @@ class ArticleController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $article = Article::query()->findOrFail($id);
+
+        return view('articles.show', [
+            'article' => $article,
+        ]);
     }
 
     /**
@@ -50,15 +60,25 @@ class ArticleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $article = Article::query()->findOrFail($id);
+
+        return view('articles.edit', [
+            'article' => $article,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateArticleRequest $request, string $id)
     {
-        //
+        $article = Article::query()->findOrFail($id);
+
+        $article->update($request->all());
+
+        session()->flash('success_message', 'แก้ไขบทความสำเสร็จ');
+
+        return redirect()->route('articles.index');
     }
 
     /**
@@ -66,6 +86,12 @@ class ArticleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $article = Article::query()->findOrFail($id);
+
+        $article->delete();
+
+        session()->flash('success_message', 'ลบความสำเสร็จ');
+
+        return redirect()->route('articles.index');
     }
 }
