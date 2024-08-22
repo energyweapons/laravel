@@ -21,6 +21,17 @@
     @enderror
 </div>
 <div class="mb-3">
+    {{ html()->label('Tags', 'tags')->class('form-label') }}
+    {{ html()->select('tags', $tags)->id('tags')
+        ->class('form-control ' . ($errors->has('tags') ? 'is-invalid' : ''))
+        ->placeholder('select tag')
+        ->multiple()
+        ->required() }}
+    @error('tags')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+<div class="mb-3">
     {{ html()->label('เผยแพร่', 'published_at')->class('form-label') }}
     {{ html()->date('published_at', now()->format('Y-m-d'))->id('published_at')
         ->class('form-control ' . ($errors->has('published_at') ? 'is-invalid' : ''))
