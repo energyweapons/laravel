@@ -6,6 +6,7 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
+use App\Models\Tag;
 
 class ArticleController extends Controller
 {
@@ -28,7 +29,9 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles.create');
+        return view('articles.create', [
+            'tags' => Tag::pluck('name', 'id'),
+        ]);
     }
 
     /**
